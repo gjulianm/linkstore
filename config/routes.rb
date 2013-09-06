@@ -3,7 +3,7 @@ Linkstore::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'links#list'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -49,6 +49,7 @@ Linkstore::Application.routes.draw do
   get 'links/new' => 'links#new', :as => 'link_new'
   post 'links/new' => 'links#create', :as => 'link_create'
   post 'links/create'
+  get 'links/create' => 'links#create_get'
   get 'links/list', :as => 'link_list'
   get 'link/set_editor/:id' => 'links#set_editor'
   get 'link/release/:id' => 'links#release'

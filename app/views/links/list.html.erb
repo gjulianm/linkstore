@@ -2,50 +2,56 @@
 	<div class="span7 offset1 link_list">
 		<h2>Link list</h2>
 
-		<%= 'No links here...' if @links.empty? %>
-		<ul>
+		<%= 'No links here...' if @empty %>
+		
 
-			<% @links.each do |link| %>
-			<li>
-				<a href="<%= link.url %>"><%= link.title %></a> 
-				<span class="domain_name">(<%= link.domain %>) - </span> 
-				<span class="link_date"><%= LinksHelper.to_relative_date link.created_at %> ago</span>
-				<br />
+		<% @link_groups.each do |group| %>
+			<h3><%= group[0] %></h3>
+			
+			<% group[1].each do |link| %>
+				<ul>
+					<li class="link_item">
+						<a href="<%= link.url %>"><%= link.title %></a> 
+						<span class="domain_name">(<%= link.domain %>) - </span> 
+						<span class="link_date"><%= LinksHelper.to_relative_date link.created_at %> ago</span>
+						<br />
 
-					<span class="editor" id="editor<%= link.id %>">
-					<% if link.editor %>
-						<% if link.editor == session[:user] %>
+						<span class="editor" id="editor<%= link.id %>">
+							<% if link.editor %>
+							<% if link.editor == session[:user] %>
 							<a href="javascript:releaseLink(<%= link.id %>)">I don't want it anymore</a>
-						<% else %>
+							<% else %>
 							Grabbed by <%= link.editor %>
-						<% end %>
-					<% else %>
-						<a href="javascript:grabLink(<%= link.id %>)">For me!</a>
-					<% end %> | 
-					</span>
-					<span class="done_mark" id="done<%= link.id %>">
-					<% if link.done %>
-						Done! 
-					<% else %>
-						<a href="javascript:markAsDone(<%= link.id %>)">Mark as done</a>
-					<% end %>
-					</span>
+							<% end %>
+							<% else %>
+							<a href="javascript:grabLink(<%= link.id %>)">For me!</a>
+							<% end %> 
+						</span>
+						<span class="done_mark">|</span>
+						<span class="done_mark" id="done<%= link.id %>">
+							<% if link.done %>
+							Done! 
+							<% else %>
+							<a href="javascript:markAsDone(<%= link.id %>)">Mark as done</a>
+							<% end %>
+						</span>
 					</li>
-				<% end %>
-
-			</ul>
-		</div>
-
-		<div class="link_create span4" />
-		<h2>Create new link</h2>
-		<%= form_for :link, url: link_create_path do |f| %>
-		<p> 
-			<%= f.label :url %><br>
-			<%= f.text_field :url %>
-		</p>
-		<p>
-			<%= f.submit %>
-		</p>
+				</ul>
+			<% end %>
 		<% end %>
+
 	</div>
+
+	<div class="link_create span4" />
+	<h2>Create new link</h2>
+	<%= form_for :link, url: link_create_path do |f| %>
+	<p> 
+		<%= f.label :url %><br>
+		<%= f.text_field :url %>
+	</p>
+	<p>
+		<%= f.submit %>
+	</p>
+	<% end %>
+</div>
 </div>

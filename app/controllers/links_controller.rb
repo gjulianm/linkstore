@@ -17,7 +17,27 @@ class LinksController < ApplicationController
 	end
 
 	def list
-		@links = Link.all
+		links = Link.all.sort_by { |l| l.created_at } .reverse
+		@empty = links.empty?
+		
+		pending = links.select { |l| l.editor.nil? && !l.done }
+		working = links.select { |l| !l.editor.nil? && !l.done}
+		done = links.select { |l| l.done}
+		@link_groups = {
+			"Pending" => pending,
+			"Working on it" => working,
+			"Done" => done
+		}
+	end
+
+	def create_get
+		newLink = Link.new
+		newLink.url = params[:url]
+		newLink.done = false
+		newLink.title = get_title newLink.url # This needs to run on the background.
+		newLink.domain = extract_domain newLink.url
+		newLink.save
+		redirect_to link_list_path
 	end
 
 	def set_editor

@@ -31,3 +31,12 @@
  .done_mark {
  	font-size: 96%;
  }
+
+ .link_item {
+ 	margin-bottom: 8px;
+ }
+
+ h3 {
+ 	font-size: 120%;
+ 	margin-right: -50px;
+ }
