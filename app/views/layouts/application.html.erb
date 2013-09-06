@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Linkstore</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+	<div class="navbar">
+		<div class="navbar-inner navbar-fixed-top" style="border-radius: 0px;">
+			<a class="brand" href="/">Linkstore</a>
+			<ul class="nav">
+				<li><a class="pull-right" href="<%= user_set_path()%>" >My name: <%= session[:user] %></a></li>
+			</ul>
+			
+		</div>
+	</div>
+
+	<div class="container-fluid" style="margin-top: 50px;">
+		<% if flash[:error] %>
+			<div class="row-fluid">
+				<div class="span8 offset2 alert alert-error"><%= flash[:error] %></div>
+			</div>
+		<% end %>
+		<div class="row-fluid">
+
+			<%= yield %>
+
+		</div>
+
+	</div>
+
+</body>
+</html>
