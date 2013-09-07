@@ -92,7 +92,8 @@ class LinksController < ApplicationController
 	    	js.gsub!( "{{#{k.to_s}}}", v )
 	    end
 
-	    "javascript:(function(){#{js}}());"
+	    js = URI.escape(js)
+	    return "javascript:(function(){#{js}}());"
 	end
 
 	def extract_domain url

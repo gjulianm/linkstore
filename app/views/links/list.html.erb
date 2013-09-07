@@ -15,20 +15,22 @@
 						<span class="domain_name">(<%= link.domain %>) - </span> 
 						<span class="link_date"><%= LinksHelper.to_relative_date link.created_at %> ago</span>
 						<br />
-
-						<span class="editor" id="editor<%= link.id %>">
-							<% if link.editor %>
-							<% if link.editor == session[:user] %>
-							<a href="javascript:releaseLink(<%= link.id %>)">I don't want it anymore</a>
-							<% else %>
-							Grabbed by <%= link.editor %>
-							<% end %>
-							<% else %>
-							<a href="javascript:grabLink(<%= link.id %>)">For me!</a>
-							<% end %> 
-						</span>
-						<span class="done_mark">|</span>
-						<span class="done_mark" id="done<%= link.id %>">
+						<span style="margin-left:20px">&nbsp;</span>
+						<% if !link.done %>
+							<span class="option" id="editor<%= link.id %>">
+								<% if link.editor %>
+								<% if link.editor == session[:user] %>
+								<a href="javascript:releaseLink(<%= link.id %>)">I don't want it anymore</a>
+								<% else %>
+								Grabbed by <%= link.editor %>
+								<% end %>
+								<% else %>
+								<a href="javascript:grabLink(<%= link.id %>)">For me!</a>
+								<% end %> 
+							</span>
+							<span class="option">|</span>
+						<% end %>
+						<span class="option" id="done<%= link.id %>">
 							<% if link.done %>
 							Done! 
 							<% else %>
