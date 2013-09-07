@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require_directory .
 
 function grabLink(id) {
 	$.get('/link/set_editor/' + id, function () {

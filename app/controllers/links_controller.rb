@@ -71,7 +71,7 @@ class LinksController < ApplicationController
 	def bookmarklet 
 		host = '127.0.0.1:3000'
 		# host = 'gblinkslinks.herokuapp.com'
-		@bookmarklet = get_bookmarklet 'bookmarklet.js', { :host => host}
+		@bookmarklet = get_bookmarklet 'auxiliar/bookmarklet.js', { :host => host}
 	end
 
 	def get_bookmarklet(file, hash)
