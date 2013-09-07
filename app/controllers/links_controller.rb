@@ -19,7 +19,7 @@ class LinksController < ApplicationController
 	def list
 		links = Link.all.sort_by { |l| l.created_at } .reverse
 		@empty = links.empty?
-		
+
 		pending = links.select { |l| l.editor.nil? && !l.done }
 		working = links.select { |l| !l.editor.nil? && !l.done}
 		done = links.select { |l| l.done}
@@ -68,6 +68,33 @@ class LinksController < ApplicationController
 		end
 	end
 
+	def bookmarklet 
+		host = '127.0.0.1:3000'
+		# host = 'gblinkslinks.herokuapp.com'
+		@bookmarklet = get_bookmarklet 'bookmarklet.js', { :host => host}
+	end
+
+	def get_bookmarklet(file, hash)
+	    # read the javascript file
+	    js = File.open( "#{Rails.root}/app/assets/javascripts/#{file}", 'r' ).read
+	    # Tabs to spaces
+	    js.gsub!( /s{\t}{ }gm/, '' )
+	    # Space runs to one space
+	    js.gsub!( /s{ +}{ }gm/, '' )         
+	    # Kill line-leading whitespace
+	    js.gsub!( /s{^\s+}{}gm/, '' )        
+	    # Kill line-ending whitespace
+	    js.gsub!( /s{\s+$}{}gm/, '' )
+	    # Kill newlines
+	    js.gsub!( /s{\n}{}gm/, '' )
+
+	    hash.each_pair do |k,v|
+	    	js.gsub!( "{{#{k.to_s}}}", v )
+	    end
+
+	    "javascript:(function(){#{js}}());"
+	end
+
 	def extract_domain url
 		domain_regex = 'https?://([^/]*)/?'
 		match = url.match domain_regex
@@ -92,7 +119,7 @@ class LinksController < ApplicationController
 		begin
 			log 'Trying to get title for ' + url
 			resp = RestClient.get url
-			
+
 			if resp.code == 200
 				return extract_title resp.body
 			else
