@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130908130007) do
+ActiveRecord::Schema.define(version: 20130908183320) do
 
   create_table "comments", force: true do |t|
     t.string   "author"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20130908130007) do
     t.string   "domain"
     t.string   "title"
     t.string   "editor"
+    t.string   "poster"
   end
 
 end
