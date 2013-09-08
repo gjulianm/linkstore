@@ -8,6 +8,6 @@ end
 desc 'Search for links done'
 task :search_done => :environment do
 	puts 'Searching for links...'
-	LinksHelper.search_done_links 'http://www.genbeta.com/rss'
+	LinksHelper.search_done_links 'http://www.genbeta.com/index.xml'
 	puts 'Finished.'
 end
