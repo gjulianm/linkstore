@@ -1,0 +1,6 @@
+<p><%= comment.text %> - 
+	<span class="additional_info">
+		by <%= comment.author %> 
+		<%= LinksHelper.to_relative_date comment.created_at %> ago
+	</span>
+</p>

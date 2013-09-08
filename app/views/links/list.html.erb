@@ -8,85 +8,23 @@
 		<% @link_groups.each do |group| %>
 			<h3><%= group[0] %></h3>
 			
-			<% group[1].each do |link| %>
-				<ul>
-					<li class="link_item">
-						<a href="<%= link.url %>"><%= link.title %></a> 
-						<span class="additional_info">(<%= link.domain %>) - <%= LinksHelper.to_relative_date link.created_at %> ago</span>
-						<br />
-						
-						<a class="option" 
-							href="javascript:toggleComments(<%= link.id %>)"
-							style="margin-left: 20px;">
-							<%= link.comments.count == 0 ? 'No' : link.comments.count %> comments
-						</a>
-
-						<span class="option">|</span>
-
-						<a class="option" href="javascript:addComment(<%= link.id %>)">Add comment</a>
-
-						<span class="option">|</span>
-
-						<% if !link.done %>
-							<span class="option" id="editor<%= link.id %>">
-								<% if link.editor %>
-									<% if link.editor == session[:user] %>
-									<a href="javascript:releaseLink(<%= link.id %>)">I don't want it anymore</a>
-									<% else %>
-									Grabbed by <%= link.editor %>
-									<% end %>
-								<% else %>
-								<a href="javascript:grabLink(<%= link.id %>)">For me!</a>
-								<% end %> 
-							</span>
-							<span class="option">|</span>
-						<% end %>
-
-						<span class="option" id="done<%= link.id %>">
-							<% if link.done %>
-							Done! 
-							<% else %>
-							<a href="javascript:markAsDone(<%= link.id %>)">Mark as done</a>
-							<% end %>
-						</span>
-
-						<br />
-
-						<div class="comments" id="comments<%= link.id %>">
-							<% link.comments.each do |comment| %>
-							<p><%= comment.text %> - 
-								<span class="additional_info">
-									by <%= comment.author %> 
-									<%= LinksHelper.to_relative_date comment.created_at %> ago
-								</span>
-							</p>
-							<% end %>
-						</div>
-
-						<div class="commentBox" id="commentBox<%= link.id %>">
-							<%= form_for :comment, url: comment_create_path(link.id) do |f| %>
-								<%= f.text_area :text %>
-								<br />
-								<%= f.submit %>
-							<% end %>
-						</div>
-					</li>
-				</ul>
-			<% end %>
+			<ul>
+				<%= render partial: 'link', collection: group[1] %>
+			</ul>
 		<% end %>
 
 	</div>
 
 	<div class="link_create span4" />
 	<h2>Create new link</h2>
-	<%= form_for :link, url: link_create_path do |f| %>
-	<p> 
-		<%= f.label :url %><br>
-		<%= f.text_field :url %>
-	</p>
-	<p>
-		<%= f.submit %>
-	</p>
-	<% end %>
-</div>
+		<%= form_for :link, url: link_create_path do |f| %>
+			<p> 
+				<%= f.label :url %><br>
+				<%= f.text_field :url %>
+			</p>
+			<p>
+				<%= f.submit %>
+			</p>
+		<% end %>
+	</div>
 </div>
