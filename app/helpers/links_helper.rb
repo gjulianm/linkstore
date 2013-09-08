@@ -8,5 +8,8 @@ module LinksHelper
 
 		distance_of_time_in_words(from_time, date) 
 	end
-				
+			
+	def self.remove_old
+		Link.where(:done => true).destroy_all
+	end	
 end
