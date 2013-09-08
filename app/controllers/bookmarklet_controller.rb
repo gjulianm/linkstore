@@ -1,7 +1,7 @@
 class BookmarkletController < ApplicationController
 	def index
-		host = '127.0.0.1:3000'
-		# host = 'gblinkslinks.herokuapp.com'
+		# host = '127.0.0.1:3000'
+		host = 'gblinkslinks.herokuapp.com'
 		vars = { 
 			:host => host,
 			:user => session[:user]
