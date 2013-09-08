@@ -44,7 +44,6 @@ class LinksController < ApplicationController
 		link = Link.find_by("id = " + params[:id])
 
 		if link
-			log 'exists!'
 			link.editor = session[:user]
 			link.save
 		end

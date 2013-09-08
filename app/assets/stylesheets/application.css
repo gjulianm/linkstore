@@ -13,12 +13,7 @@
  *= require_tree .
  */
 
- .domain_name {
- 	color: gray;
- 	font-size: 96%;
- }
-
- .link_date {
+ .additional_info {
  	color: gray;
  	font-size: 96%;
  }
@@ -33,5 +28,16 @@
 
  h3 {
  	font-size: 120%;
- 	margin-right: -50px;
+ }
+
+ .comments {
+ 	display: none;
+ 	margin-left: 20px;
+ 	margin-top: 10px;
+ }
+
+ .commentBox {
+ 	display: none;
+ 	margin-left: 20px;
+ 	margin-top: 10px;
  }
