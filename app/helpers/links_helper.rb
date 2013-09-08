@@ -12,4 +12,19 @@ module LinksHelper
 	def self.remove_old
 		Link.where(:done => true).destroy_all
 	end	
+
+	def self.search_done_links feed
+		links = Link.all
+		res = RestClient.get feed
+
+		if res.code == 200
+			body = res.body
+			links.each do |l|
+				if body.index l.url
+					l.done = true
+					l.save
+				end
+			end
+		end
+	end
 end
