@@ -105,6 +105,7 @@ class LinksController < ApplicationController
 	end
 
 	def extract_title body
+		body = body.encode!('UTF-8', 'UTF-8', :invalid => :replace) 
 		title_regex = '<title>(.*)</title>'
 		match = body.match title_regex
 		if match
