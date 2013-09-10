@@ -10,8 +10,8 @@ module LinksHelper
 	end
 
 	def self.remove_old
-		Link.where(:done => true).destroy_all
-	end
+		old_threshold = 1.day.ago
+		Link.where('updated_at < ? and done = ?', old_threshold, true ).destroy_allend
 
 	def self.search_done_links feed
 		begin
