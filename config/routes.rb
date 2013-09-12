@@ -5,12 +5,12 @@ Linkstore::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'links#list'
-
   get 'links/new' => 'links#new', :as => 'link_new'
   post 'links/new' => 'links#create', :as => 'link_create'
   post 'links/create'
   get 'links/create' => 'links#create_get'
   get 'links/list', :as => 'link_list'
+  get 'links/rss', :as => 'link_rss'
   get 'link/set_editor/:id' => 'links#set_editor'
   get 'link/release/:id' => 'links#release'
   get 'link/done/:id' => 'links#done'
