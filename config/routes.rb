@@ -11,6 +11,7 @@ Linkstore::Application.routes.draw do
   get 'links/create' => 'links#create_get'
   get 'links/list', :as => 'link_list'
   get 'links/rss', :as => 'link_rss'
+  get 'links/rss/:id', to: 'link#rssauthor'
   get 'link/set_editor/:id' => 'links#set_editor'
   get 'link/release/:id' => 'links#release'
   get 'link/done/:id' => 'links#done'

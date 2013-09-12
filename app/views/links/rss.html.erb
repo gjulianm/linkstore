@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+<channel>
+  <title>Lista de artículos pendientes</title>
+  <link>http://gblinks.herokuapp.com/</link>
+  <description>Lista de artículos pendientes</description>
+  <% @link_groups.each do |group| %>
+  <%= render partial: 'rsslink', collection: group[1] %>
+  <%end%>
+</channel>
+</rss>

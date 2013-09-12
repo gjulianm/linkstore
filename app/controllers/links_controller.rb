@@ -40,14 +40,24 @@ class LinksController < ApplicationController
 		@empty = links.empty?
 
 		pending = links.select { |l| l.editor.nil? && !l.done }
-		working = links.select { |l| !l.editor.nil? && !l.done}
-		done = links.select { |l| l.done}
+		#working = links.select { |l| !l.editor.nil? && !l.done}
+		#done = links.select { |l| l.done}
 		@link_groups = {
 			"Pending" => pending
-			#"Working on it" => working,
-			#"Done" => done
 		}
+	  render layout: false
+	end
+	
+	def rssauthor
+		links = Link.all.sort_by { |l| l.created_at } .reverse
+		@empty = links.empty?
 
+		#pending = links.select { |l| l.editor.nil? && !l.done }
+		working = links.select { |l| !l.editor.nil? && l.editor == params[:id] && !l.done}
+		#done = links.select { |l| l.done}
+		@link_groups = {
+			"Working" => working
+		}
 	  render layout: false
 	end
 
