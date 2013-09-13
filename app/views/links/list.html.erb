@@ -31,7 +31,7 @@
 
 		<div>
 			<h2>Create new task</h2>
-			<%= form_for :link, url: link_nourl_create_path do |f| %>
+			<%= form_for :task, url: link_nourl_create_path do |f| %>
 				<p> 
 					<%= f.label :title %><br>
 					<%= f.text_field :title %>

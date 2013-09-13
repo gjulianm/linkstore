@@ -14,7 +14,7 @@ class LinksController < ApplicationController
 		newLink = Link.new
 		newLink.url = nil
 		newLink.done = false
-		newLink.title = params[:link][:title]
+		newLink.title = params[:task][:title]
 		newLink.domain = 'task'
 		newLink.poster = session[:user]
 		newLink.save

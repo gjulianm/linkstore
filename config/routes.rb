@@ -8,7 +8,7 @@ Linkstore::Application.routes.draw do
   get 'links/new' => 'links#new', :as => 'link_new'
   post 'links/new' => 'links#create', :as => 'link_create'
   post 'links/create'
-  post 'tasks/create' => 'links#nourl_create', :as => 'link_nourl_create_path'
+  post 'tasks/create' => 'links#nourl_create', :as => 'link_nourl_create'
   get 'links/create' => 'links#create_get'
   get 'links/list', :as => 'link_list'
   get 'links/rss', :as => 'link_rss'
