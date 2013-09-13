@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   	newComment = Comment.new
   	newComment.text = params[:comment][:text]
   	newComment.link_id = params[:id]
-  	newComment.author = session[:user]
+  	newComment.author = session[:user] || 'anonymous'
   	newComment.save
   	redirect_to link_list_path
   end

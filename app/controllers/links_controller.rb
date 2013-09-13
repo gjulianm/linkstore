@@ -16,7 +16,7 @@ class LinksController < ApplicationController
 		newLink.done = false
 		newLink.title = params[:task][:title]
 		newLink.domain = 'task'
-		newLink.poster = session[:user]
+		newLink.poster = session[:user] || 'anonymous'
 		newLink.save
 		redirect_to link_list_path
 	end
@@ -27,7 +27,7 @@ class LinksController < ApplicationController
 		newLink.done = false
 		newLink.title = get_title newLink.url # This needs to run on the background.
 		newLink.domain = extract_domain newLink.url
-		newLink.poster = user
+		newLink.poster = user || 'anonymous'
 		newLink.save
 		redirect_to link_list_path
 	end
