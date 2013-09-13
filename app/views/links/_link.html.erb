@@ -1,5 +1,7 @@
 <li class="link_item">
-	<a href="<%= link.url %>"><%= link.title %></a> 
+	<% if !link.url.nil? %><a href="<%= link.url %>"><% end %>
+		<%= link.title %>
+	<% if !link.url.nil? %></a> <% end %>
 
 	<span class="additional_info">
 		(<%= link.domain %>) - <%= LinksHelper.to_relative_date link.created_at %> ago by <%= link.poster %>
