@@ -16,15 +16,29 @@
 	</div>
 
 	<div class="link_create span4" />
-	<h2>Create new link</h2>
-		<%= form_for :link, url: link_create_path do |f| %>
-			<p> 
-				<%= f.label :url %><br>
-				<%= f.text_field :url %>
-			</p>
-			<p>
-				<%= f.submit %>
-			</p>
-		<% end %>
+		<div>
+			<h2>Create new link</h2>
+			<%= form_for :link, url: link_create_path do |f| %>
+				<p> 
+					<%= f.label :url %><br>
+					<%= f.text_field :url %>
+				</p>
+				<p>
+					<%= f.submit %>
+				</p>
+			<% end %>
+		</div>
+
+		<div>
+			<h2>Create new task</h2>
+			<%= form_for :link, url: link_nourl_create_path do |f| %>
+				<p> 
+					<%= f.label :title %><br>
+					<%= f.text_field :title %>
+				</p>
+				<p>
+					<%= f.submit %>
+				</p>
+			<% end %>
 	</div>
 </div>

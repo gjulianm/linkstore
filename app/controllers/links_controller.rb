@@ -10,6 +10,17 @@ class LinksController < ApplicationController
 		create_link params[:link][:url], session[:user]
 	end
 
+	def nourl_create 
+		newLink = Link.new
+		newLink.url = nil
+		newLink.done = false
+		newLink.title = params[:link][:title]
+		newLink.domain = 'task'
+		newLink.poster = session[:user]
+		newLink.save
+		redirect_to link_list_path
+	end
+
 	def create_link url, user
 		newLink = Link.new
 		newLink.url = url
