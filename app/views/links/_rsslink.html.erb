@@ -1,6 +1,7 @@
   <item>
     <title><%= rsslink.title %></title>
-    <link><%= rsslink.url %></link>
+    <link><% if rsslink.url.nil? %><%= rsslink.url %><% end %><% if !rsslink.url.nil? %>#<% end %></link>
     <description><p><%= rsslink.url %></p></description>
     <author><%= rsslink.poster %></author>
   </item>
+  
