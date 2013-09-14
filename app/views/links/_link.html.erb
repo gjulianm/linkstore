@@ -4,7 +4,7 @@
 	<% if !link.url.nil? %></a> <% end %>
 
 	<span class="additional_info">
-		(<%= link.domain %>) - <%= LinksHelper.to_relative_date link.created_at %> ago by <%= link.poster %>
+		(<%= link.domain %>) <span class="label label-info"><%= LinksHelper.to_relative_date link.created_at %> ago</span> by <%= link.poster %>
 	</span>
 	
 	<br />
