@@ -27,7 +27,7 @@
 		<%= form_for :link, :class => 'form-inline', url: link_create_path do |f| %>
 			<p>
 				<%= f.text_field :url, :placeholder => 'URL', :style => 'margin-bottom: 0px' %>
-				<%= f.submit 'Add link', :class => 'btn btn-primary' %>
+				<%= f.submit 'Add', :class => 'btn btn-primary' %>
 			</p>
 			<p>You can also use our bookmarklet. Drag this to your bookmarks bar: <a href="javascript:(function(){var%20xhr%20=%20new%20XMLHttpRequest();%0Avar%20loc%20=%20encodeURIComponent(location.href);%0Axhr.open(%22GET%22,%22http://gblinks.herokuapp.com/links/create?user=macram&amp;url=%22%20+%20loc,true);%0Axhr.onreadystatechange=function()%7Bif(this.readyState==4)%7Bwindow.alert(%22added!%22);%7D%7D;%0Axhr.send();%0A}());" class="btn">+ GBLink</a>
 		<% end %></div>
@@ -36,7 +36,7 @@
 		<%= form_for :task, :class => 'form-inline', url: link_nourl_create_path do |f|  %>
 			<p> 
 				<%= f.text_field :title, :placeholder => 'Task title', :style => 'margin-bottom: 0px' %>
-				<%= f.submit 'Add task', :class => 'btn btn-primary' %>
+				<%= f.submit 'Add', :class => 'btn btn-primary' %>
 			</p>
 		<% end %>
 	    </div>
