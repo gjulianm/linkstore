@@ -11,7 +11,7 @@ module LinksHelper
 
   def self.remove_old
     old_threshold = 1.day.ago
-    Link.where('updated_at < ? and done = ?', old_threshold, true ).destroy_allend
+    Link.where('updated_at < ? and done = ?', old_threshold, true ).destroy_all
   end
   
   def self.search_done_links feed
