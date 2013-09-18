@@ -36,6 +36,8 @@ gem 'less-rails-bootstrap', '>= 2.1.0'
 
 gem 'rest-client'
 
+gem 'rinku'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

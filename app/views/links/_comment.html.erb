@@ -1,4 +1,4 @@
-<p><span class="comment_text"><%= comment.text %></span> 
+<p><span class="comment_text"><%= raw Rinku.auto_link h comment.text %></span> 
 	<span class="additional_info">
 		 - by <%= (comment.author || 'anonymous') %> 
 		<%= LinksHelper.to_relative_date comment.created_at %> ago
