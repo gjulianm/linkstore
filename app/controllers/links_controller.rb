@@ -1,7 +1,8 @@
 require "#{Rails.root}/lib/hipchat.rb"
-
+require "#{Rails.root}/lib/bookmarklet.rb"
 class LinksController < ApplicationController
 	include HipChatHelper
+	include BookmarkletHelper
 
 	def send_create_notification link
 		log 'Sending notification (send) to HipChat...'
@@ -79,6 +80,8 @@ class LinksController < ApplicationController
 			"Working on it" => working,
 			"Done" => done
 		}
+
+		@bookmarklet = build_bookmarklet
 	end
 	
 	def rss
@@ -144,31 +147,7 @@ class LinksController < ApplicationController
 	end
 
 	def bookmarklet 
-		host = '127.0.0.1:3000'
-		# host = 'gblinkslinks.herokuapp.com'
-		@bookmarklet = get_bookmarklet 'auxiliar/bookmarklet.js', { :host => host}
-	end
-
-	def get_bookmarklet(file, hash)
-	    # read the javascript file
-	    js = File.open( "#{Rails.root}/app/assets/javascripts/#{file}", 'r' ).read
-	    # Tabs to spaces
-	    js.gsub!( /s{\t}{ }gm/, '' )
-	    # Space runs to one space
-	    js.gsub!( /s{ +}{ }gm/, '' )         
-	    # Kill line-leading whitespace
-	    js.gsub!( /s{^\s+}{}gm/, '' )        
-	    # Kill line-ending whitespace
-	    js.gsub!( /s{\s+$}{}gm/, '' )
-	    # Kill newlines
-	    js.gsub!( /s{\n}{}gm/, '' )
-
-	    hash.each_pair do |k,v|
-	    	js.gsub!( "{{#{k.to_s}}}", v )
-	    end
-
-	    js = URI.escape(js)
-	    return "javascript:(function(){#{js}}());"
+		@bookmarklet = build_bookmarklet
 	end
 
 	def extract_domain url
