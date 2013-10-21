@@ -1,5 +1,6 @@
 require "#{Rails.root}/lib/hipchat.rb"
 require "#{Rails.root}/lib/bookmarklet.rb"
+
 class LinksController < ApplicationController
 	include HipChatHelper
 	include BookmarkletHelper
