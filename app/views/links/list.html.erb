@@ -5,10 +5,10 @@
 		<%= 'No links here...' if @empty %>
 		
 
-		<% @link_groups.each do |group| %>
-			<h3><%= group[0] %></h3>
-			
-			<ul>
+		<% @link_groups.each_with_index do |group, index| %>
+			<h3><a href="javascript:void" data-toggle="collapse" data-target="#linkgroup<%= index %>">></a> <%= group[0] %></h3>
+
+			<ul id='linkgroup<%= index %>' class="collapse in">
 				<%= render partial: 'link', collection: group[1] %>
 			</ul>
 		<% end %>
