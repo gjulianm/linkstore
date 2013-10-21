@@ -23,10 +23,9 @@ module BookmarkletHelper
 
 	def build_bookmarklet
 		host = "#{request.protocol}#{request.host}:#{request.port}"
-		STDOUT.puts host
 		vars = { 
 			:host => host,
-			:user => session[:user]
+			:user => session[:user] || 'anonymous'
 		}
 		return read_bookmarklet 'auxiliar/bookmarklet.js', vars
 	end
