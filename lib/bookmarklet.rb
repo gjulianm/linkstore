@@ -23,6 +23,7 @@ module BookmarkletHelper
 
 	def build_bookmarklet
 		host = "#{request.protocol}#{request.host}:#{request.port}"
+		STDOUT.puts host
 		vars = { 
 			:host => host,
 			:user => session[:user]
