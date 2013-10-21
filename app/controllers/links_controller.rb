@@ -1,4 +1,37 @@
+require "#{Rails.root}/lib/hipchat.rb"
+
 class LinksController < ApplicationController
+	include HipChatHelper
+
+	def send_create_notification link
+		log 'Sending notification (send) to HipChat...'
+		claim_path = "#{request.protocol}#{request.host}:#{request.port}#{link_claim_path(link.id)}"
+		message = "#{link.poster} ha enviado un enlace: <a href=\"#{link.url}\">#{link.title}</a>. <a href=\"#{claim_path}\">Clic para asignarme el enlace.</a>"
+
+		begin
+			send_hc_message message
+			log 'HC notification sent.'
+		rescue => e
+			flash[:error] = 'Could not send HipChat message.'
+			log 'Error sending notification.'
+			log e.inspect
+		end
+	end
+
+	def send_claim_notification link
+		log 'Sending notification (claim) to HipChat...'
+		message = "Enlace <a href=\"#{link.url}\">#{link.title}</a> asignado a <b>#{link.editor}</b>."
+	
+		begin
+			send_hc_message message
+			log 'HC notification sent.'
+		rescue => e
+			flash[:error] = 'Could not send HipChat message.'
+			log 'Error sending notification.'
+			log e.inspect
+		end
+	end
+
 	def log what
 		STDOUT.puts what
 	end
@@ -18,6 +51,7 @@ class LinksController < ApplicationController
 		newLink.domain = 'task'
 		newLink.poster = session[:user] || 'anonymous'
 		newLink.save
+		send_create_notification newLink
 		redirect_to link_list_path
 	end
 
@@ -29,6 +63,7 @@ class LinksController < ApplicationController
 		newLink.domain = extract_domain newLink.url
 		newLink.poster = user || 'anonymous'
 		newLink.save
+		send_create_notification newLink
 		redirect_to link_list_path
 	end
 
@@ -82,7 +117,12 @@ class LinksController < ApplicationController
 		if link
 			link.editor = session[:user]
 			link.save
+		else
+			log 'Could not find link #{params[:id]}'
 		end
+
+		send_claim_notification link
+		@link = link
 	end
 
 	def release
@@ -155,6 +195,7 @@ class LinksController < ApplicationController
 	def get_title url
 		begin
 			log 'Trying to get title for ' + url
+	
 			resp = RestClient.get url
 
 			if resp.code == 200
@@ -162,7 +203,7 @@ class LinksController < ApplicationController
 			else
 				return ' - Title unknown - '
 			end
-		rescue RuntimeError => e
+		rescue => e
 			log e.inspect
 			return ' - Title unknown - '
 		end

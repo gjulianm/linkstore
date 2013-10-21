@@ -16,9 +16,6 @@ gem 'sass-rails', '~> 4.0.0.rc1'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -33,10 +30,10 @@ gem 'jbuilder', '~> 1.0.1'
 
 gem 'therubyracer', :platforms => :ruby
 gem 'less-rails-bootstrap', '>= 2.1.0'
-
 gem 'rest-client'
-
 gem 'rinku'
+gem 'hipchat'
+gem "rails-settings-cached", "0.3.1"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

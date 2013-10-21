@@ -1,0 +1,17 @@
+<div class="span 2">
+	<h2>Set HipChat API key</h2>
+
+	<%= form_for :hipchat do |f| %>
+		<p>
+			<%= f.label :token %><br />
+			<%= f.text_field :token, :value => @token %>
+		</p>
+
+		<p>
+			<%= f.label :room %><br/>
+			<%= f.text_field :room, :value => @room %>
+		</p>
+
+		<p><%= f.submit 'Set', :class => 'btn btn-primary' %></p>
+	<% end %>
+</div>

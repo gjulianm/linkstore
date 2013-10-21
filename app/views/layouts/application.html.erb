@@ -21,10 +21,14 @@
 		</div>
 	</div>
 
-	<div class="container-fluid" style="margin-top: 50px;">
+	<div class="container-fluid" style="margin-top: 50px; margin-bottom: 50px;">
 		<% if flash[:error] %>
 			<div class="row-fluid">
 				<div class="span8 offset2 alert alert-error"><%= flash[:error] %></div>
+			</div>
+		<% elsif flash[:message] %>
+			<div class="row-fluid">
+				<div class="span8 offset2 alert alert-success"><%= flash[:message] %></div>
 			</div>
 		<% end %>
 		<div class="row-fluid">
