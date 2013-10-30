@@ -181,10 +181,11 @@ class LinksController < ApplicationController
 			if resp.code == 200
 				return extract_title resp.body
 			else
+				log 'Could not get title. Reply ' + resp.code + ' by ' + url
 				return ' - Title unknown - '
 			end
 		rescue => e
-			log e.inspect
+			log 'Error getting title for ' + url + ': ' + e.inspect
 			return ' - Title unknown - '
 		end
 	end
