@@ -151,6 +151,17 @@ class LinksController < ApplicationController
 		end
 	end
 
+	def remove
+		link = Link.find_by("id = " + params[:id])
+
+		if link
+			link.destroy
+			render :nothing => true, :status => 200
+		else
+			render :nothing => true, :status => 404
+		end
+	end
+
 	def bookmarklet 
 		@bookmarklet = build_bookmarklet
 	end

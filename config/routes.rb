@@ -16,6 +16,7 @@ Linkstore::Application.routes.draw do
   get 'link/set_editor/:id' => 'links#set_editor', :as => 'link_claim'
   get 'link/release/:id' => 'links#release', :as => 'link_release'
   get 'link/done/:id' => 'links#done'
+  get 'link/remove/:id' => 'links#remove', :as => 'link_remove'
   get 'links/bookmarklet'
   get 'user' => "user#index", :as => "user_set"
   post 'user' => 'user#set'

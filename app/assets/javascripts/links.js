@@ -16,7 +16,14 @@ function markAsDone(id) {
 	$('#done'+id).text("...");
 	$.get('/link/done/' + id, function() {
 		$('#done'+id).text("Done!");
-	})
+	});
+}
+
+function remove(id) {
+	$('#remove'+id).text("...");
+	$.get('/link/remove/' + id, function() {
+		location.reload(); // Well...
+	});
 }
 
 function toggleComments(id) {
