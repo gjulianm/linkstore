@@ -1,6 +1,5 @@
 ## Tasks
 
-* Add an optional parameter for the title when creating a link, so the bookmarklet can send the title right away.
 * Responsive design.
 * Delete button.
 * Link create returns a JSON object with the link.
@@ -8,3 +7,4 @@
 ### Done
 
 * A progress indicator in the bookmarklet.
+* Add an optional parameter for the title when creating a link, so the bookmarklet can send the title right away.

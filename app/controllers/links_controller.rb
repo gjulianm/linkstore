@@ -57,11 +57,15 @@ class LinksController < ApplicationController
 		redirect_to link_list_path
 	end
 
-	def create_link url, user
+	def create_link url, user, title
 		newLink = Link.new
 		newLink.url = url
 		newLink.done = false
-		newLink.title = get_title newLink.url # This needs to run on the background.
+		if !title.nil?
+			newLink.title = title
+		else
+			newLink.title = get_title newLink.url # This needs to run on the background.
+		end
 		newLink.domain = extract_domain newLink.url
 		newLink.poster = user || 'anonymous'
 		newLink.save
@@ -112,7 +116,7 @@ class LinksController < ApplicationController
 	end
 
 	def create_get
-		create_link params[:url], params[:user]
+		create_link params[:url], params[:user], params[:title]
 	end
 
 	def set_editor
