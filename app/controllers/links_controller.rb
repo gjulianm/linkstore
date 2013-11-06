@@ -23,7 +23,7 @@ class LinksController < ApplicationController
 	def send_claim_notification link
 		log 'Sending notification (claim) to HipChat...'
 		message = "Enlace <a href=\"#{link.url}\">#{link.title}</a> asignado a <b>#{link.editor}</b>."
-	
+
 		begin
 			send_hc_message message
 			log 'HC notification sent.'
@@ -58,18 +58,25 @@ class LinksController < ApplicationController
 	end
 
 	def create_link url, user, title
-		newLink = Link.new
-		newLink.url = url
-		newLink.done = false
-		if !title.nil?
-			newLink.title = title
+		existing = Link.find(:first,  :conditions => [ "url = ?", url])
+
+		if existing
+			flash[:error] = "Duplicated link"
 		else
-			newLink.title = get_title newLink.url # This needs to run on the background.
+			newLink = Link.new
+			newLink.url = url
+			newLink.done = false
+			if !title.nil?
+				newLink.title = title
+			else
+				newLink.title = get_title newLink.url # This needs to run on the background.
+			end
+			newLink.domain = extract_domain newLink.url
+			newLink.poster = user || 'anonymous'
+			newLink.save
+			send_create_notification newLink
 		end
-		newLink.domain = extract_domain newLink.url
-		newLink.poster = user || 'anonymous'
-		newLink.save
-		send_create_notification newLink
+		
 		redirect_to link_list_path
 	end
 
@@ -99,7 +106,7 @@ class LinksController < ApplicationController
 		@link_groups = {
 			"Pending" => pending
 		}
-	  render layout: false
+		render layout: false
 	end
 	
 	def rssauthor
@@ -112,7 +119,7 @@ class LinksController < ApplicationController
 		@link_groups = {
 			"Working" => working
 		}
-	  render layout: false
+		render layout: false
 	end
 
 	def create_get
@@ -190,7 +197,7 @@ class LinksController < ApplicationController
 	def get_title url
 		begin
 			log 'Trying to get title for ' + url
-	
+
 			resp = RestClient.get url
 
 			if resp.code == 200
