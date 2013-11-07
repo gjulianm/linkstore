@@ -42,7 +42,7 @@ class LinksController < ApplicationController
 	end
 
 	def create
-		create_link params[:link][:url], session[:user]
+		create_link params[:link][:url], session[:user], nil
 	end
 
 	def nourl_create 
