@@ -73,12 +73,13 @@ module Rest
 					requires :priority, type: Integer, desc: "Priority"
 				end
 				post :priority do
-					logger.info "Priority for #{params[:id]}"
+					logger.info "Priority for #{params[:id]} : #{params[:priority]}"
 					link = Link.find(params[:id])
 					error! 'Not found', 404 unless link
 
 					link.priority = params[:priority]
 					link.save
+					logger.info "Saved!"
 				end
 
 			end # route_param :id
