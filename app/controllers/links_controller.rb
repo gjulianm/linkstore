@@ -70,9 +70,9 @@ class LinksController < ApplicationController
 			if !title.nil?
 				newLink.title = title
 			else
-				newLink.title = get_title newLink.url # This needs to run on the background.
+				newLink.title = LinksHelper.get_title newLink.url # This needs to run on the background.
 			end
-			newLink.domain = extract_domain newLink.url
+			newLink.domain = LinksHelper.extract_domain newLink.url
 			newLink.poster = user || 'anonymous'
 			newLink.save
 			send_create_notification newLink
@@ -172,17 +172,5 @@ class LinksController < ApplicationController
 
 	def bookmarklet 
 		@bookmarklet = build_bookmarklet
-	end
-
-	def extract_domain url
-		domain_regex = 'https?://([^/]*)/?'
-		match = url.match domain_regex
-		if match
-			return match[1]
-		else
-			return url
-		end
-	end
-
-	
+	end	
 end

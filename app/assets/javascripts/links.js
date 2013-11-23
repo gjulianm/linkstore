@@ -33,3 +33,14 @@ function toggleComments(id) {
 function addComment(id) {
 	$('#commentBox' + id).toggle();
 }
+
+function setPriority(id, priority) {
+	$.post('/api/links/' + id + '/priority', { 'priority': priority });
+	$('#priorityOptions' + id).hide();
+	$('#priorityLink' + id).show();
+}
+
+function showPriorityOptions(id) {
+	$('#priorityOptions' + id).show();
+	$('#priorityLink' + id).hide();
+}

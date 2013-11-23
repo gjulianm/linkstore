@@ -23,5 +23,5 @@ Linkstore::Application.routes.draw do
   post 'comments/create/:id' => 'comments#create', :as => 'comment_create'
   get 'hipchat/configure' => 'hipchat#configure', :as => 'hipchat_config'
   post 'hipchat/configure' => 'hipchat#config_save'
-  mount Linkstore::API => '/api/'
+  mount Rest::API => '/api/'
 end

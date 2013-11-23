@@ -45,19 +45,34 @@ module LinksHelper
 
   def self.get_title url
     begin
-      log 'Trying to get title for ' + url
+      LinksHelper.log 'Trying to get title for ' + url
 
       resp = RestClient.get url
 
       if resp.code == 200
-        return extract_title resp.body
+        return LinksHelper.extract_title resp.body
       else
-        log 'Could not get title. Reply ' + resp.code + ' by ' + url
+        LinksHelper.log 'Could not get title. Reply ' + resp.code + ' by ' + url
         return ' - Title unavailable - '
       end
     rescue => e
-      log 'Error getting title for ' + url + ': ' + e.inspect
+      LinksHelper.log 'Error getting title for ' + url + ': ' + e.inspect
       return ' - Title unknown - '
+    end
+  end
+
+
+  def self.log what
+    STDOUT.puts what
+  end
+
+  def self.extract_domain url
+    domain_regex = 'https?://([^/]*)/?'
+    match = url.match domain_regex
+    if match
+      return match[1]
+    else
+      return url
     end
   end
 end

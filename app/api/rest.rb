@@ -1,6 +1,8 @@
-module Linkstore
+require 'grape'
+
+
+module Rest
 	class API < Grape::API
-		version 'v1', using: :path
 		format :json
 		default_format :json
 
@@ -22,8 +24,12 @@ module Linkstore
 				newLink = Link.new
 				newLink.url = params[:url]
 				newLink.done = false
-				newLink.title = params[:title] || get_title params[:url]
-				newLink.domain = extract_domain params[:url]
+				newLink.title = params[:title] 
+
+				if newLink.title.nil?
+					LinksHelper.get_title params[:url]
+				end
+				newLink.domain = LinksHelper.extract_domain params[:url]
 				newLink.poster = params[:user]
 				newLink.priority = 0
 				newLink.save
@@ -46,30 +52,35 @@ module Linkstore
 
 				params do
 					requires :user, type: String, desc: "Username"
-				end
-				post :editor
+				end 
+				post :editor do
 					link = Link.find(params[:id])
 					error! 'Not found', 404 unless link
 
 					link.editor = params[:user]
+					link.save
 				end
 
-				post :done
+				post :done do
 					link = Link.find(params[:id])
 					error! 'Not found', 404 unless link
 
 					link.done = true
+					link.save
 				end
 
 				params do 
 					requires :priority, type: Integer, desc: "Priority"
 				end
-				post :priority
+				post :priority do
+					logger.info "Priority for #{params[:id]}"
 					link = Link.find(params[:id])
 					error! 'Not found', 404 unless link
 
 					link.priority = params[:priority]
+					link.save
 				end
+
 			end # route_param :id
 		end # resource :link
 	end #class 

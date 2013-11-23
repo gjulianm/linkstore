@@ -1,6 +1,6 @@
-<li class="link_item">
+<li class="link_item priority-<%= link.priority %>">
 	<% if !link.url.nil? %><a href="<%= link.url %>"><% end %>
-		<%= link.title %>
+	<%= link.title %>
 	<% if !link.url.nil? %></a> <% end %>
 
 	<span class="additional_info">
@@ -22,32 +22,51 @@
 	<span class="option">|</span>
 
 	<% if !link.done %>
-		<span class="option" id="editor<%= link.id %>">
-			<% if link.editor %>
-				<% if link.editor == session[:user] %>
-					<a href="javascript:releaseLink(<%= link.id %>)">
-						I don't want it anymore
-					</a>
-				<% else %>
-					Grabbed by <%= link.editor %>
-				<% end %>
-			<% else %>
-				<a href="javascript:grabLink(<%= link.id %>)">For me!</a>
-			<% end %> 
-		</span>
+	<span class="option" id="editor<%= link.id %>">
+		<% if link.editor %>
+		<% if link.editor == session[:user] %>
+		<a href="javascript:releaseLink(<%= link.id %>)">
+			I don't want it anymore
+		</a>
+		<% else %>
+		Grabbed by <%= link.editor %>
+		<% end %>
+		<% else %>
+		<a href="javascript:grabLink(<%= link.id %>)">For me!</a>
+		<% end %> 
+	</span>
 
-		<span class="option">|</span>
+	<span class="option">|</span>
 	<% end %>
 
 	<span class="option" id="done<%= link.id %>">
 		<% if link.done %>
-			Done! 
+		Done! 
 		<% else %>
-			<a href="javascript:markAsDone(<%= link.id %>)">
-				Mark as done
-			</a>
+		<a href="javascript:markAsDone(<%= link.id %>)">
+			Mark as done
+		</a>
 		<% end %>
 	</span>
+
+	<span class="option">|</span>
+
+	<span class="option" id="priority<%= link.id %>">	
+		<a href="javascript:showPriorityOptions(<%= link.id %>)" id="priorityLink<%= link.id %>">
+			Priority</a>
+		<span id="priorityOptions<%= link.id %>" style="display:none; ">
+			<a href="javascript:setPriority(<%= link.id %>, 2)">
+				High
+			</a> ·
+			<a href="javascript:setPriority(<%= link.id %>, 1)">
+				Medium
+			</a> ·
+			<a href="javascript:setPriority(<%= link.id %>, 0)">
+				Low
+			</a>
+		</span>
+	</span>
+
 
 	<span class="option">|</span>
 
