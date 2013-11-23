@@ -56,6 +56,10 @@
  	color: #B8B8B8 !important;
  }
 
+.priority-0 {
+	background-color: white;
+}
+
  .priority-1 {
  	background-color:  rgb(252, 248, 227);
  }
