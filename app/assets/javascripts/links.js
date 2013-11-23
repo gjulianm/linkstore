@@ -36,6 +36,7 @@ function addComment(id) {
 
 function setPriority(id, priority) {
 	$.post('/api/links/' + id + '/priority', { 'priority': priority });
+	$('#link-' + id).addClass("priority-" + priority);
 	$('#priorityOptions' + id).hide();
 	$('#priorityLink' + id).show();
 }
