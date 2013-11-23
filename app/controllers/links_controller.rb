@@ -52,6 +52,7 @@ class LinksController < ApplicationController
 		newLink.title = params[:task][:title]
 		newLink.domain = 'task'
 		newLink.poster = session[:user] || 'anonymous'
+		newLink.priority = 0
 		newLink.save
 		send_create_notification newLink
 		redirect_to link_list_path
@@ -183,32 +184,5 @@ class LinksController < ApplicationController
 		end
 	end
 
-	def extract_title body
-		body = body.encode!('UTF-8', 'UTF-8', :invalid => :replace) 
-		title_regex = '<title>(.*)</title>'
-		match = body.match title_regex
-		if match
-			return match[1]
-		else
-			return ' - Title unknown - '
-		end
-	end
-
-	def get_title url
-		begin
-			log 'Trying to get title for ' + url
-
-			resp = RestClient.get url
-
-			if resp.code == 200
-				return extract_title resp.body
-			else
-				log 'Could not get title. Reply ' + resp.code + ' by ' + url
-				return ' - Title unknown - '
-			end
-		rescue => e
-			log 'Error getting title for ' + url + ': ' + e.inspect
-			return ' - Title unknown - '
-		end
-	end
+	
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131021174210) do
+ActiveRecord::Schema.define(version: 20131123150509) do
 
   create_table "comments", force: true do |t|
     t.string   "author"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20131021174210) do
     t.string   "title"
     t.string   "editor"
     t.string   "poster"
+    t.integer  "priority"
   end
 
   create_table "settings", force: true do |t|

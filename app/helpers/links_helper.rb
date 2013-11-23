@@ -31,4 +31,33 @@ module LinksHelper
     rescue
     end
   end
+
+  def self.extract_title body
+    body = body.encode!('UTF-8', 'UTF-8', :invalid => :replace) 
+    title_regex = '<title>(.*)</title>'
+    match = body.match title_regex
+    if match
+      return match[1]
+    else
+      return ' - Title unknown - '
+    end
+  end
+
+  def self.get_title url
+    begin
+      log 'Trying to get title for ' + url
+
+      resp = RestClient.get url
+
+      if resp.code == 200
+        return extract_title resp.body
+      else
+        log 'Could not get title. Reply ' + resp.code + ' by ' + url
+        return ' - Title unavailable - '
+      end
+    rescue => e
+      log 'Error getting title for ' + url + ': ' + e.inspect
+      return ' - Title unknown - '
+    end
+  end
 end
